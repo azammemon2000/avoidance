@@ -60,10 +60,10 @@ ament_target_dependencies(avoidance
   mavros_msgs
   Eigen3
   PCL
-  ignition-gazebo9
-  ignition-math6
-  ignition-transport9
-  ignition-msgs5
+  gz-sim9
+  gz-math8
+  gz-transport14
+  gz-msgs11
 )
 
 if(NOT DISABLE_SIMULATION)
@@ -95,10 +95,10 @@ ament_export_dependencies(
   geometry_msgs
   mavros_msgs
   tf2_ros
-  ignition-gazebo9
-  ignition-math6
-  ignition-transport9
-  ignition-msgs5
+  gz-sim9
+  gz-math8
+  gz-transport14
+  gz-msgs11
 )
 
 ament_package()
