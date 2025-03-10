@@ -119,6 +119,10 @@ sudo apt install ros-rolling-ros-gz-bridge
 
 . activate
 pip install rclpy sensor-msgs
+sudo apt install ros-rolling-geometry-msgs ros-rolling-tf2-ros ros-rolling-tf2-msgs ros-rolling-tf2-geometry-msgs ros-rolling-rclcpp ros-rolling-rosbag2-cpp
+
+rosdep update
+rosdep install --from-paths src --ignore-src -r -y
 ```
 
 1. Initialize rosdep.
@@ -155,30 +159,7 @@ pip install rclpy sensor-msgs
    sudo apt install libpcl1 ros-kinetic-octomap-* ros-kinetic-yaml-*
    ```
 
-1. Clone this repository in your catkin workspace in order to build the avoidance node.
 
-   ```bash
-   cd ~/catkin_ws/src
-   git clone https://github.com/PX4/avoidance.git
-   ```
-
-1. Actually build the avoidance node.
-
-   ```bash
-   catkin build -w ~/catkin_ws
-   ```
-
-   Note that you can build the node in release mode this way:
-
-   ```bash
-   catkin build -w ~/catkin_ws --cmake-args -DCMAKE_BUILD_TYPE=Release
-   ```
-
-1. Source the catkin setup.bash from your catkin workspace.
-
-   ```bash
-   source ~/catkin_ws/devel/setup.bash
-   ```
 
 ## Run the Avoidance Gazebo Simulation
 
