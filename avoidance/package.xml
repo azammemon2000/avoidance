@@ -30,9 +30,9 @@
   <!-- Gazebo Ignition Dependencies -->
   <build_depend>gazebo_ros_pkgs</build_depend>
   <build_depend>gz-sim9</build_depend>
-  <build_depend>gz-math6</build_depend>
-  <build_depend>gz-transport9</build_depend>
-  <build_depend>gz-msgs5</build_depend>
+  <build_depend>gz-math8</build_depend>
+  <build_depend>gz-transport14</build_depend>
+  <build_depend>gz-msgs11</build_depend>
 
   <!-- Runtime Dependencies -->
   <exec_depend>rclcpp</exec_depend>
