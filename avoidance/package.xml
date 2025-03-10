@@ -19,7 +19,9 @@
   <build_depend>rclpy</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>geometry_msgs</build_depend>
+  <build_depend>tf2_geometry_msgs</build_depend>
   <build_depend>sensor_msgs</build_depend>
+  <build_depend>tf2</build_depend>
   <build_depend>tf2_ros</build_depend>
   <build_depend>pcl_ros</build_depend>
   <build_depend>mavros_msgs</build_depend>
@@ -39,7 +41,9 @@
   <exec_depend>rclpy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>tf2_geometry_msgs</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>tf2</exec_depend>
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>pcl_ros</exec_depend>
   <exec_depend>mavros_msgs</exec_depend>
@@ -49,10 +53,10 @@
 
   <!-- Gazebo Ignition Runtime Dependencies -->
   <exec_depend>gazebo_ros_pkgs</exec_depend>
-  <exec_depend>ignition-gazebo9</exec_depend>
-  <exec_depend>ignition-math6</exec_depend>
-  <exec_depend>ignition-transport9</exec_depend>
-  <exec_depend>ignition-msgs5</exec_depend>
+  <exec_depend>gz-sim9</exec_depend>
+  <exec_depend>gz-math8</exec_depend>
+  <exec_depend>gz-transport14</exec_depend>
+  <exec_depend>gz-msgs11</exec_depend>
 
   <!-- Testing Dependencies -->
   <test_depend>ament_lint_auto</test_depend>
