@@ -48,42 +48,78 @@ The documentation contains information about how to setup and run the two planne
 ## Installation
 
 ### Installation
+[Install ROS2 Rolling](https://docs.ros.org/en/rolling/Installation.html)
+[Install Gazebo Ionic](https://gazebosim.org/docs/ionic/install_ubuntu/)
 
-This is a step-by-step guide to install and build all the prerequisites for running this module on Ubuntu 16.04 and Kinetic - Ubuntu 18.04 and Melodic are supported as well. You might want to skip some of them if your system is already partially installed.
+```sudo apt-get install ros-rolling-ros-gz
+sudo chmod 666 /dev/dri/renderD128
+sudo apt-get install mesa-utils libgl1-mesa-dri
+sudo apt install gcc-11 g++-11 build-essential
+```
 
-Note that in the following instructions, we assume your catkin workspace (in which we will build the avoidance module) is in `~/catkin_ws`, and the PX4 Firmware directory is `~/Firmware`. Feel free to adapt this to your situation.
+[Follow instructions](https://ardupilot.org/dev/docs/building-setup-linux.html#building-setup-linux)
+```cd ardupilot
+Tools/environment_install/install-prereqs-ubuntu.sh -y
+. ~/.profile
+./waf configure --board MatekH743
+./waf configure --board Pixhawk6X
+python3 -m pip install pexpect
+./waf copter
 
-1. Add ROS to sources.list.
+sudo apt-get install python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-lxml python3-pygame
+pip3 install PyYAML mavproxy --user
+echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
+sudo usermod -a -G dialout azam
 
-   ```bash
-   echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list
-   sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-   sudo apt update
-   ```
+sudo apt install libopencv-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-bad gstreamer1.0-libav gstreamer1.0-gl
+cd /etc/
+sudo mkdir ros
+cd ros
+sudo mkdir rosdep
+cd rosdep
+sudo mkdir sources.list.d
 
-1. Install gazebo with ROS (use ROS melodic based on preference).
+sudo bash -c 'wget https://raw.githubusercontent.com/osrf/osrf-rosdep/master/gz/00-gazebo.list -O /etc/ros/rosdep/sources.list.d/00-gazebo.list'
 
-   ```bash
-   sudo apt install ros-kinetic-desktop-full
+sudo rosdep init
+rosdep update
+export GZ_VERSION=harmonic
+sudo bash -c 'wget https://raw.githubusercontent.com/osrf/osrf-rosdep/master/gz/00-gazebo.list -O /etc/ros/rosdep/sources.list.d/00-gazebo.list'
+rosdep update
+rosdep resolve gz-harmonic # or gz-ionic
 
-   # Source ROS
-   source /opt/ros/kinetic/setup.bash
-   ```
+cd ~/
+mkdir ros_ws
+cd ros_ws
+mkdir src
+rosdep install --from-paths src --ignore-src -y
+cd src
+git clone https://github.com/azammemon2000/ardupilot_gazebo.git -b ros2 ardupilot_gazebo
+cd ardupilot_gazebo
+mkdir build && cd build
 
-  Full installation of ROS Kinetic comes with Gazebo 7.
+sudo apt install libunwind-dev
+sudo apt install libgstreamer1.0-dev gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly
+source /home/azam/venv-ardupilot/bin/activate
+pip install catkin_pkg
 
-  If you are using different version of Gazebo,
+cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo
+make -j4
+sudo make install
 
-  please make sure install ros-gazebo related packages
+cd ../../../
+rosdep install --from-paths src --ignore-src -y
 
-  For Gazebo 8,
-  ```
-  sudo apt install ros-kinetic-gazebo8-*
-  ```
-  For Gazebo 9,
-  ```
-  sudo apt install ros-kinetic-gazebo9-*
-  ```
+# Add to bashrc:
+export GZ_SIM_SYSTEM_PLUGIN_PATH=$HOME/ros_ws/src/ardupilot_gazebo/build:$GZ_SIM_SYSTEM_PLUGIN_PATH
+export GZ_SIM_RESOURCE_PATH=$HOME/ros_ws/src/ardupilot_gazebo/models:$HOME/ros_ws/src/ardupilot_gazebo/worlds::$HOME/PX4-gazebo-models/worlds:$HOME/PX4-gazebo-models/models:$GZ_SIM_RESOURCE_PATH
+
+sudo apt install python3-future
+sudo apt install ros-rolling-ros-gz-bridge
+
+. activate
+pip install rclpy sensor-msgs
+```
 
 1. Initialize rosdep.
 
